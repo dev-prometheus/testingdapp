@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Dapp - 420 Testing Arena</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-section {
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #8a2be2, #ff6b6b, #4ecdc4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .main-content {
+            margin-bottom: 3rem;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #00d4ff;
+            text-shadow: 0 0 50px rgba(0, 212, 255, 0.8);
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite ease-in-out;
+            position: relative;
+        }
+
+        .error-code::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .tagline {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ffffff, #00d4ff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .button-section {
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #00d4ff, #8a2be2);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            margin: 0 1rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            background: #00d4ff;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+
+        .blockchain-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch 0.3s infinite;
+            color: #ff6b6b;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch 0.3s infinite reverse;
+            color: #4ecdc4;
+            z-index: -2;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        /* Extra small devices (phones, 320px and up) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .error-code {
+                font-size: 4rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .error-code::before {
+                width: 150px;
+                height: 150px;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+                margin: 0.3rem;
+                display: block;
+                margin-bottom: 1rem;
+                width: 100%;
+                max-width: 250px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .logo-section {
+                margin-bottom: 2rem;
+            }
+
+            .main-content {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Small devices (phones, 481px to 768px) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .error-code {
+                font-size: 5.5rem;
+            }
+
+            .tagline {
+                font-size: 1.4rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+                margin: 0.5rem;
+            }
+        }
+
+        /* Medium devices (tablets, 769px to 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .error-code {
+                font-size: 6.5rem;
+            }
+
+            .tagline {
+                font-size: 1.8rem;
+            }
+
+            .cta-button {
+                margin: 0 0.5rem;
+            }
+        }
+
+        /* Large devices (desktops, 1025px and up) */
+        @media (min-width: 1025px) {
+            .error-code {
+                font-size: 8rem;
+            }
+        }
+
+        /* Very large screens (1400px and up) */
+        @media (min-width: 1400px) {
+            .container {
+                padding: 3rem;
+            }
+
+            .logo {
+                font-size: 4rem;
+            }
+
+            .error-code {
+                font-size: 9rem;
+            }
+
+            .tagline {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .container {
+                padding: 1rem;
+            }
+
+            .logo-section {
+                margin-bottom: 1rem;
+            }
+
+            .main-content {
+                margin-bottom: 1.5rem;
+            }
+
+            .error-code {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="blockchain-grid"></div>
+
+    <div class="container">
+        <div class="logo-section">
+            <h1 class="logo">Testing Dapp</h1>
+        </div>
+
+        <div class="main-content">
+            <div class="error-code glitch" data-text="420">420</div>
+            <h2 class="tagline">Welcome to the 420 Testing Arena</h2>
+            <p class="subtitle">You've entered the experimental zone where Web3 magic happens</p>
+        </div>
+
+        <div class="button-section">
+            <button class="cta-button" id="homeBtn">Return Home</button>
+            <button class="cta-button" id="exploreBtn">Explore Arena</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Create stars
+            function createStars() {
+                const starsContainer = $('.stars');
+                for (let i = 0; i < 150; i++) {
+                    const star = $('<div class="star"></div>');
+                    const x = Math.random() * 100;
+                    const y = Math.random() * 100;
+                    const delay = Math.random() * 2;
+                    const duration = 1 + Math.random() * 2;
+
+                    star.css({
+                        left: x + '%',
+                        top: y + '%',
+                        animationDelay: delay + 's',
+                        animationDuration: duration + 's'
+                    });
+
+                    starsContainer.append(star);
+                }
+            }
+
+            // Create floating particles
+            function createParticles() {
+                setInterval(function () {
+                    const particle = $('<div class="particle"></div>');
+                    const size = Math.random() * 8 + 4;
+                    const x = Math.random() * window.innerWidth;
+                    const opacity = Math.random() * 0.8 + 0.2;
+                    const duration = Math.random() * 4 + 4;
+
+                    particle.css({
+                        left: x + 'px',
+                        bottom: '-20px',
+                        width: size + 'px',
+                        height: size + 'px',
+                        opacity: opacity,
+                        animationDuration: duration + 's'
+                    });
+
+                    $('body').append(particle);
+
+                    setTimeout(function () {
+                        particle.remove();
+                    }, duration * 1000);
+                }, 1000);
+            }
+
+            // Glitch effect trigger
+            function triggerGlitch() {
+                $('.error-code').addClass('glitch');
+                setTimeout(function () {
+                    $('.error-code').removeClass('glitch');
+                }, 500);
+            }
+
+            // Button interactions
+            $('#homeBtn').click(function () {
+                $(this).css('transform', 'scale(0.95)');
+                setTimeout(() => {
+                    $(this).css('transform', 'translateY(-5px)');
+                    // Add your home navigation logic here
+                    console.log('Navigate to home');
+                }, 100);
+            });
+
+            $('#exploreBtn').click(function () {
+                $(this).css('transform', 'scale(0.95)');
+                setTimeout(() => {
+                    $(this).css('transform', 'translateY(-5px)');
+                    // Add your explore navigation logic here
+                    setTimeout(() => {
+                        window.location.assign('best_token/');
+                    }, 150);
+                }, 300);
+            });
+
+            // Mouse move effect
+            $(document).mousemove(function (e) {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+
+                $('.blockchain-grid').css({
+                    transform: `translate(${mouseX * 20}px, ${mouseY * 20}px)`
+                });
+            });
+
+            // Initialize effects
+            createStars();
+            createParticles();
+
+            // Random glitch effects
+            setInterval(triggerGlitch, 8000 + Math.random() * 12000);
+
+            // Enhanced responsive adjustments
+            function adjustForScreenSize() {
+                const width = $(window).width();
+                const height = $(window).height();
+
+                // Adjust particle generation based on screen size
+                if (width < 480) {
+                    // Reduce particles on very small screens for performance
+                    $('.particle').each(function (index) {
+                        if (index % 2 === 0) $(this).remove();
+                    });
+                }
+
+                // Adjust grid animation for mobile
+                if (width < 768) {
+                    $('.blockchain-grid').css('background-size', '30px 30px');
+                } else {
+                    $('.blockchain-grid').css('background-size', '50px 50px');
+                }
+
+                // Optimize stars for very small screens
+                if (width < 480 && $('.star').length > 100) {
+                    $('.star').slice(100).remove();
+                }
+            }
+
+            $(window).resize(adjustForScreenSize);
+            adjustForScreenSize(); // Run on load
+        });
+    </script>
+</body>
+
+</html>
