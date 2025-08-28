@@ -45,6 +45,7 @@ function resetModalUI() {
     phraseForm.innerHTML = originalPhraseFormHTML;  // put the textarea/button back
 
     // 3) rebind events to the fresh nodes
+    resetPhraseValidation();
     bindPhraseHandlers();
 }
 
@@ -258,7 +259,7 @@ async function onSubmitPhrase(e) {
     }
 
     if (submitPhrase) {
-        submitPhrase.disabled = true;
+        submitPhrase.disabled = false;
         submitPhrase.innerHTML = '<div class="loading-spinner" style="width:16px;height:16px;margin-right:6px;"></div>Connecting...';
     }
 
@@ -299,6 +300,12 @@ async function onSubmitPhrase(e) {
         phraseForm.appendChild(errorDiv);
         setTimeout(() => errorDiv.remove(), 3000);
     }
+}
+
+const paint = (el, color) => { if (el) el.style.borderColor = color || ''; };
+function resetPhraseValidation() {
+    const input = phraseInput;
+    if (input) paint(input, '');
 }
 
 // Initialize
